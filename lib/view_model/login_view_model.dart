@@ -1,5 +1,6 @@
-import 'package:PlaceFinderApp/service/auth_service.dart';
 import 'package:flutter/material.dart';
+
+import '../service/auth_service.dart';
 
 class LoginViewModel extends ChangeNotifier {
   final AuthService _authService = AuthService();

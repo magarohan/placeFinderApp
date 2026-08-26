@@ -1,8 +1,9 @@
-import 'package:PlaceFinderApp/model/place_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+
+import '../../model/place_model.dart';
 
 class PlaceDetailsScreen extends StatefulWidget {
   final Place place;
@@ -56,7 +57,7 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
                 widget.place.thumbnail,
                 height: 250,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(
+                errorBuilder: (_, _, _) => Container(
                   height: 250,
                   color: Colors.grey[200],
                   child: const Icon(Icons.image_not_supported, size: 50),
@@ -85,7 +86,7 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
                           vertical: 6,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.blueAccent.withOpacity(0.1),
+                          color: Colors.blueAccent.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
@@ -176,7 +177,7 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
                                   height: 40,
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.blue.withOpacity(0.3),
+                                      color: Colors.blue.withValues(alpha: 0.3),
                                       shape: BoxShape.circle,
                                     ),
                                     child: const Center(

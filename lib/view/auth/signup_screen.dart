@@ -1,6 +1,7 @@
-import 'package:PlaceFinderApp/view_model/signup_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../view_model/signup_view_model.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});

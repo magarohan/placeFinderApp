@@ -1,7 +1,8 @@
-import 'package:PlaceFinderApp/view/auth/signup_screen.dart';
-import 'package:PlaceFinderApp/view_model/login_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:place_finder_app/view/auth/signup_screen.dart';
 import 'package:provider/provider.dart';
+
+import '../../view_model/login_view_model.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

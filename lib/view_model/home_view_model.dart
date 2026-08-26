@@ -1,6 +1,7 @@
-import 'package:PlaceFinderApp/model/place_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import '../model/place_model.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final CollectionReference _placesRef = FirebaseFirestore.instance.collection(

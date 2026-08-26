@@ -1,9 +1,10 @@
-import 'package:PlaceFinderApp/model/place_model.dart';
-import 'package:PlaceFinderApp/view/auth/profile_screen.dart';
-import 'package:PlaceFinderApp/view/home/place_details_screen.dart';
-import 'package:PlaceFinderApp/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:place_finder_app/view/home/place_details_screen.dart';
 import 'package:provider/provider.dart';
+
+import '../../model/place_model.dart';
+import '../../view_model/home_view_model.dart';
+import '../auth/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -69,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                             width: 60,
                             height: 60,
                             fit: BoxFit.cover,
-                            errorBuilder: (_, __, ___) => Container(
+                            errorBuilder: (_, _, _) => Container(
                               width: 60,
                               height: 60,
                               color: Colors.grey[200],
@@ -79,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                         : Container(
                             width: 60,
                             height: 60,
-                            color: Colors.blueAccent.withOpacity(0.1),
+                            color: Colors.blueAccent.withValues(alpha: 0.1),
                             child: const Icon(
                               Icons.location_on,
                               color: Colors.blueAccent,

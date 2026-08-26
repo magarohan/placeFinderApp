@@ -1,6 +1,7 @@
-import 'package:PlaceFinderApp/service/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import '../service/auth_service.dart';
 
 class ProfileViewModel extends ChangeNotifier {
   final AuthService _authService = AuthService();

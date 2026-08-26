@@ -1,8 +1,9 @@
-import 'package:PlaceFinderApp/service/auth_service.dart';
-import 'package:PlaceFinderApp/view_model/profile_view_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../service/auth_service.dart';
+import '../../view_model/profile_view_model.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -102,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(height: 40),
                     CircleAvatar(
                       radius: 50,
-                      backgroundColor: Colors.blueAccent.withOpacity(0.1),
+                      backgroundColor: Colors.blueAccent.withValues(alpha: 0.1),
                       child: Text(
                         viewModel.getInitials(displayName),
                         style: const TextStyle(
@@ -145,6 +146,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           await viewModel.logout();
+                          // ignore: use_build_context_synchronously
                           if (mounted) Navigator.pop(context);
                         },
                         style: ElevatedButton.styleFrom(
