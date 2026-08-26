@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:place_finder_app/service/auth_service.dart';
 import 'package:place_finder_app/view/auth/login_screen.dart';
 import 'package:place_finder_app/view/home/home_screen.dart';
+import 'package:place_finder_app/view/widgets/custom_loading_widget.dart';
 import 'package:place_finder_app/view_model/home_view_model.dart';
 import 'package:place_finder_app/view_model/login_view_model.dart';
 import 'package:place_finder_app/view_model/profile_view_model.dart';
@@ -52,7 +53,7 @@ class AuthWrapper extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
+            body: CustomLoadingWidget(message: 'Checking authentication...'),
           );
         }
         if (snapshot.hasData) {

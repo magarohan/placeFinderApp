@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../model/place_model.dart';
 import '../../view_model/home_view_model.dart';
 import '../auth/profile_screen.dart';
+import '../widgets/custom_loading_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -37,15 +38,13 @@ class HomeScreen extends StatelessWidget {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return const CustomLoadingWidget(message: 'Fetching places...');
           }
 
           final places = snapshot.data ?? [];
 
           if (places.isEmpty) {
-            return const Center(
-              child: Text("No places found. Add some to get started!"),
-            );
+            return const Center(child: Text("No places found."));
           }
 
           return ListView.builder(

@@ -149,6 +149,7 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
                         options: MapOptions(
                           initialCenter: placeLocation,
                           initialZoom: 14,
+                          minZoom: 10.0,
                         ),
                         children: [
                           TileLayer(

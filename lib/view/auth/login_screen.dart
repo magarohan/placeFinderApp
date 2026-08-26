@@ -3,6 +3,7 @@ import 'package:place_finder_app/view/auth/signup_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_model/login_view_model.dart';
+import '../widgets/custom_loading_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -135,22 +136,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          child: viewModel.isLoading
-                              ? const SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                    color: Colors.white,
-                                  ),
-                                )
-                              : const Text(
-                                  'Login',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                  ),
-                                ),
+                          child: const Text(
+                            'Login',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                          ),
                         ),
                         const SizedBox(height: 16),
                         Row(
@@ -178,6 +170,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
+              if (viewModel.isLoading)
+                const CustomLoadingWidget(
+                  message: 'Logging in...',
+                  isOverlay: true,
+                ),
             ],
           ),
         );

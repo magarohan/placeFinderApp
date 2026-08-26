@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../service/auth_service.dart';
 import '../../view_model/profile_view_model.dart';
+import '../widgets/custom_loading_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -65,22 +66,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 title: const Text('Profile'),
                 centerTitle: true,
                 actions: [
-                  if (!viewModel.isEditing)
-                    IconButton(
-                      icon: const Icon(Icons.edit),
-                      onPressed: () => viewModel.setEditing(true),
-                    )
-                  else ...[
-                    if (viewModel.isSaving)
-                      const Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        ),
-                      )
-                    else
+                  if (viewModel.isEditing) ...[
+                    if (!viewModel.isSaving)
                       IconButton(
                         icon: const Icon(Icons.check),
                         onPressed: () => _handleUpdate(viewModel),
@@ -95,79 +82,102 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ],
               ),
-              body: SingleChildScrollView(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 40),
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundColor: Colors.blueAccent.withValues(alpha: 0.1),
-                      child: Text(
-                        viewModel.getInitials(displayName),
-                        style: const TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blueAccent,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    if (viewModel.isEditing)
-                      TextFormField(
-                        controller: _nameController,
-                        decoration: const InputDecoration(
-                          labelText: 'Display Name',
-                          border: OutlineInputBorder(),
-                        ),
-                        textAlign: TextAlign.center,
-                      )
-                    else ...[
-                      Text(
-                        displayName ?? 'No name set',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        email ?? 'No email found',
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                    const SizedBox(height: 48),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          await viewModel.logout();
-                          // ignore: use_build_context_synchronously
-                          if (mounted) Navigator.pop(context);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.redAccent,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+              body: Stack(
+                children: [
+                  SingleChildScrollView(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 40),
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundColor: Colors.blueAccent.withValues(
+                            alpha: 0.1,
+                          ),
+                          child: Text(
+                            viewModel.getInitials(displayName),
+                            style: const TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blueAccent,
+                            ),
                           ),
                         ),
-                        child: const Text(
-                          'Logout',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                        const SizedBox(height: 24),
+                        if (viewModel.isEditing)
+                          TextFormField(
+                            textAlign: TextAlign.start,
+                            controller: _nameController,
+                            decoration: const InputDecoration(
+                              labelText: 'Display Name',
+                              border: OutlineInputBorder(),
+                            ),
+                          )
+                        else ...[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                displayName ?? 'No name set',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              IconButton(
+                                icon: const Icon(Icons.edit, size: 20),
+                                onPressed: () => viewModel.setEditing(true),
+                                constraints: const BoxConstraints(),
+                                padding: EdgeInsets.zero,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            email ?? 'No email found',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                        const SizedBox(height: 48),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              await viewModel.logout();
+                              // ignore: use_build_context_synchronously
+                              if (mounted) Navigator.pop(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.redAccent,
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: const Text(
+                              'Logout',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  if (viewModel.isSaving)
+                    const CustomLoadingWidget(
+                      message: 'Updating profile...',
+                      isOverlay: true,
+                    ),
+                ],
               ),
             );
           },
