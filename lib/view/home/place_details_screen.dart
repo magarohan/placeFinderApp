@@ -168,7 +168,6 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
                           ),
                           MarkerLayer(
                             markers: [
-                              // Place Marker
                               Marker(
                                 point: placeLocation,
                                 width: 50,
@@ -179,7 +178,6 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
                                   size: 40,
                                 ),
                               ),
-                              // User Marker
                               if (_userLocation != null)
                                 Marker(
                                   point: _userLocation!,
