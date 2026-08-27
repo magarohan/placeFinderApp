@@ -66,10 +66,24 @@ class _LoginScreenState extends State<LoginScreen> {
                         TextFormField(
                           controller: _emailController,
                           enabled: !viewModel.isLoading,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: 'Email',
-                            prefixIcon: Icon(Icons.email_outlined),
-                            border: OutlineInputBorder(),
+                            prefixIcon: const Icon(Icons.email_outlined),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                color: Colors.grey,
+                                width: 1,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                color: Colors.blueAccent,
+                                width: 1,
+                              ),
+                            ),
+                            border: const OutlineInputBorder(),
                           ),
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
@@ -98,6 +112,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                     : Icons.visibility,
                               ),
                               onPressed: viewModel.togglePasswordVisibility,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                color: Colors.grey,
+                                width: 1,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                color: Colors.blueAccent,
+                                width: 1,
+                              ),
                             ),
                             border: const OutlineInputBorder(),
                           ),
@@ -138,10 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           child: const Text(
                             'Login',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                            ),
+                            style: TextStyle(color: Colors.white, fontSize: 14),
                           ),
                         ),
                         const SizedBox(height: 16),
