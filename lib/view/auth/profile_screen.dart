@@ -149,7 +149,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: ElevatedButton(
                             onPressed: () async {
                               await viewModel.logout();
-                              // ignore: use_build_context_synchronously
                               if (mounted) Navigator.pop(context);
                             },
                             style: ElevatedButton.styleFrom(
