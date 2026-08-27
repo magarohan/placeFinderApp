@@ -25,19 +25,28 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
 
   Future<void> _checkPermissionAndGetLocation() async {
     try {
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        return;
+      }
+
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          return;
+        }
       }
 
-      if (permission == LocationPermission.always ||
-          permission == LocationPermission.whileInUse) {
-        Position position = await Geolocator.getCurrentPosition();
-        if (mounted) {
-          setState(() {
-            _userLocation = LatLng(position.latitude, position.longitude);
-          });
-        }
+      if (permission == LocationPermission.deniedForever) {
+        return;
+      }
+
+      Position position = await Geolocator.getCurrentPosition();
+      if (mounted) {
+        setState(() {
+          _userLocation = LatLng(position.latitude, position.longitude);
+        });
       }
     } catch (_) {}
   }
@@ -155,7 +164,7 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
                           TileLayer(
                             urlTemplate:
                                 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                            userAgentPackageName: 'com.example.PlaceFinderApp',
+                            userAgentPackageName: 'com.example.placefinderapp',
                           ),
                           MarkerLayer(
                             markers: [
