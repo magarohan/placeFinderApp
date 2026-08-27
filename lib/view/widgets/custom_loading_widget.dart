@@ -25,7 +25,7 @@ class CustomLoadingWidget extends StatelessWidget {
 
     if (isOverlay) {
       return Container(
-        color: Colors.black.withOpacity(0.5),
+        color: Colors.black.withValues(alpha: 0.5),
         width: double.infinity,
         height: double.infinity,
         alignment: Alignment.center,
